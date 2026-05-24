@@ -53,7 +53,7 @@ data = pd.read_csv("tiktok_dataset.csv")
 
 # Muestra las primeras 5 filas para una inspección visual rápida de las columnas
 data.head()
-(image.png)
+![Vista previa](images/image.png)
 
 # Devuelve la cantidad total de celdas de datos (filas multiplicadas por columnas)
 data.size
