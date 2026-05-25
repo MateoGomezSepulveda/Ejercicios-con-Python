@@ -117,7 +117,7 @@ for col in count_colums:
     
     print(f'Number of outlers, {col}: {outlier_count}')
 
-    
+
 
 plt.figure(figsize=(8,6))
 plt.title('video views vs likes by claim status')
