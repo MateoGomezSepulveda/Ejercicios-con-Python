@@ -29,34 +29,36 @@ Asegúrate de completar esta actividad antes de continuar. El próximo elemento 
 
 ### Tarea 1. Importaciones y carga de datos Para el análisis exploratorio de datos (EDA), importa los datos y los paquetes que serán de mayor utilidad, tales como pandas, numpy y matplotlib.###
 
-import numpy as ap
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+    import numpy as ap
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import seaborn as sns
 
-**PACE: Analizar Considera las preguntas de tu Documento de Estrategia PACE y las que se presentan a continuación, según corresponda, para completar tu código:**
+## PACE: Analizar Considera las preguntas de tu Documento de Estrategia PACE y las que se presentan a continuación, según corresponda, para completar tu código:**
 
-¿Es necesario reestructurar los datos o convertirlos a formatos utilizables?
+# ¿Es necesario reestructurar los datos o convertirlos a formatos utilizables?
+
 Respuesta: No es necesario hacer una reestructuracion completa como derretir datos o tablas pero si es recomendable realizar pequeñas conversiones logicas si se va a trabajar con variables categoricas complejas como label o device
 
-¿Existe alguna variable que tenga datos faltantes?
+# ¿Existe alguna variable que tenga datos faltantes?
+
 Respuesta:Si al revisar el dataset de waze podremos notar datos faltantes en algunas varibles que nos indicara si algun usuario de waze abandono la aplicaicon o tiene valores nulos.
 
 ### Tarea 2. Exploración y limpieza de datos
 
-                         **Considera las siguientes preguntas:**
+## Considera las siguientes preguntas:
 
-Dado el escenario, ¿cuáles columnas de datos son las más aplicables?
-    Respuesta: Las columnas más aplicables son aquellas que describen el comportamiento, la actividad y el perfil del usuario en relación con el abandono de la aplicación. Esto incluye la variable objetivo label (que indica si el usuario se quedó o se fue), y variables predictoras clave como sessions (sesiones), drives (viajes realizados), total_sessions, driven_km_drives (kilómetros conducidos), duration_minutes_drives (minutos conducidos) y device (tipo de dispositivo).
+# Dado el escenario, ¿cuáles columnas de datos son las más aplicables?
+Respuesta: Las columnas más aplicables son aquellas que describen el comportamiento, laactividad y el perfil del usuario en relación con el abandono de la aplicación. Esto incluye lavariable objetivo label (que indica si el usuario se quedó o se fue), y variables predictorasclave como sessions (sesiones), drives (viajes realizados), total_sessions, driven_km_drives(kilómetros conducidos), duration_minutes_drives (minutos conducidos) y device (tipo dedispositivo).
 
-¿Cuáles columnas de datos puedes eliminar, sabiendo que no resolverán el escenario de tu problema?
+# ¿Cuáles columnas de datos puedes eliminar, sabiendo que no resolverán el escenario de tu problema?
 Respuesta: La columna ID se puede eliminar (o no tomar en cuenta en los modelos) debido a que es un identificador único numérico para cada fila que no aporta ningún patrón de comportamiento ni valor estadístico para predecir la pérdida de usuarios.
 
-¿Cómo verificarías si hay datos faltantes? Y ¿cómo manejarías los datos faltantes (si los hay)?
-    Respuesta: Para verificar datos faltantes en Python se utiliza el comando df.isna().sum() o df.isnull().sum(). Para manejarlos, dado que los datos faltantes se encuentran específicamente en la columna categórica label, se puede optar por excluir temporalmente esas filas en los análisis estadísticos directos o visualizaciones de la tasa de abandono para no sesgar los porcentajes reales, o evaluar si el volumen de nulos es lo suficientemente bajo como para eliminarlos sin perder representatividad.
+# ¿Cómo verificarías si hay datos faltantes? Y ¿cómo manejarías los datos faltantes (si los hay)?
+Respuesta: Para verificar datos faltantes en Python se utiliza el comando df.isna().sum() o dfisnull().sum(). Para manejarlos, dado que los datos faltantes se encuentran específicamente enla columna categórica label, se puede optar por excluir temporalmente esas filas en losanálisis estadísticos directos o visualizaciones de la tasa de abandono para no sesgar losporcentajes reales, o evaluar si el volumen de nulos es lo suficientemente bajo como paraeliminarlos sin perder representatividad.
 
-¿Cómo verificarías si hay valores atípicos (outliers)? Y ¿cómo manejarías los valores atípicos (si los hay)?
-    Respuesta: Para verificar valores atípicos se utiliza el método numérico df.describe() (observando diferencias drásticas entre el percentil 75 y el valor máximo) y herramientas visuales como diagramas de caja (boxplot) o histogramas. Para manejarlos, dependiendo del impacto, se pueden aplicar técnicas como el aislamiento (recortar/reemplazar los valores extremos fijándolos en un percentil alto como el 95 o 99 mediante imputación por límites) o simplemente conservarlos si representan comportamientos reales de usuarios extremadamente activos de la aplicación.
+# ¿Cómo verificarías si hay valores atípicos (outliers)? Y ¿cómo manejarías los valores atípicos (si los hay)?
+Respuesta: Para verificar valores atípicos se utiliza el método numérico df.describe()(observando diferencias drásticas entre el percentil 75 y el valor máximo) y herramientasvisuales como diagramas de caja (boxplot) o histogramas. Para manejarlos, dependiendo delimpacto, se pueden aplicar técnicas como el aislamiento (recortar/reemplazar los valoresextremos fijándolos en un percentil alto como el 95 o 99 mediante imputación por límites) osimplemente conservarlos si representan comportamientos reales de usuarios extremadamenteactivos de la aplicación.
 
 ![df.head()](image.png)
 
@@ -67,29 +69,26 @@ Respuesta: La columna ID se puede eliminar (o no tomar en cuenta en los modelos)
 ![df.describe()](image-3.png)
 
 ### PACE: Construir
-Considera las siguientes preguntas mientras te preparas para lidiar con los valores atípicos (outliers):
+## Considera las siguientes preguntas mientras te preparas para lidiar con los valores atípicos (outliers):
 
-¿Cuáles son algunas formas de identificar los valores atípicos?
-    Respuesta:
+# ¿Cuáles son algunas formas de identificar los valores atípicos?
+Respuesta:
+1. Método del Rango Intercuartílico (IQR): Es uno de los más utilizados en análisis exploratorio. Se calcula la diferencia entre el tercer cuartil (Q3) y el primer cuartil (Q1) para obtener el IQR. Cualquier dato que se encuentre por debajo de $Q1 - 1.5 \times IQR$ o por encima de $Q3 + 1.5 \times IQR$ se considera un valor atípico.
 
-        1. Método del Rango Intercuartílico (IQR): Es uno de los más utilizados en análisis exploratorio. Se calcula la diferencia entre el tercer cuartil (Q3) y el primer cuartil (Q1) para obtener el IQR. Cualquier dato que se encuentre por debajo de $Q1 - 1.5 \times IQR$ o por encima de $Q3 + 1.5 \times IQR$ se considera un valor atípico.
+2. Puntuación Z (Z-Score): Mide a cuántas desviaciones estándar se encuentra un punto de datos respecto a la media. En distribuciones que se aproximan a una campana normal, los valores con un Z-score mayor a 3 o menor a -3 suelen identificarse como atípicos.
 
-        2. Puntuación Z (Z-Score): Mide a cuántas desviaciones estándar se encuentra un punto de datos respecto a la media. En distribuciones que se aproximan a una campana normal, los valores con un Z-score mayor a 3 o menor a -3 suelen identificarse como atípicos.
+3.Visualizaciones Gráficas: * Diagramas de caja (Boxplots): Reflejan directamente el método IQR mostrando los valores extremos como puntos aislados fuera de los "bigotes".
 
-        3.Visualizaciones Gráficas: * Diagramas de caja (Boxplots): Reflejan directamente el método IQR mostrando los valores extremos como puntos aislados fuera de los "bigotes".
+4.Visualizaciones Gráficas: * Diagramas de caja (Boxplots): Reflejan directamente el método IQR mostrando los valores extremos como puntos aislados fuera de los "bigotes".
 
-        4.Visualizaciones Gráficas: * Diagramas de caja (Boxplots): Reflejan directamente el método IQR mostrando los valores extremos como puntos aislados fuera de los "bigotes".
+# ¿Cómo tomas la decisión de conservar o excluir los valores atípicos de cualquier modelo futuro?
+Respuesta: La decisión no depende de una regla matemática fija, sino de la naturaleza de los datos y del objetivo del negocio. Se deben considerar los siguientes escenarios:
 
-¿Cómo tomas la decisión de conservar o excluir los valores atípicos de cualquier modelo futuro?
-    Respuesta: La decisión no depende de una regla matemática fija, sino de la naturaleza de los datos y del objetivo del negocio. Se deben considerar los siguientes escenarios:
-
-        Excluir o modificarlos si:
-            1.Son errores: Si se deben a fallos del sistema o registros imposibles (ej. velocidades irreales o distancias negativas), deben eliminarse o corregirse.
-
-            2.Afectan al modelo: Algoritmos como la regresión lineal son muy sensibles a los extremos. En estos casos se pueden borrar o truncar usando técnicas como el winsorizing (reemplazarlos por los percentiles 95 o 99).
+Excluir o modificarlos si:
+    1.Son errores: Si se deben a fallos del sistema o registros imposibles (ej. velocidades irreales o distancias negativas), deben eliminarse o corregirse.
+    2.Afectan al modelo: Algoritmos como la regresión lineal son muy sensibles a los extremos. En estos casos se pueden borrar o truncar usando técnicas como el winsorizing (reemplazarlos por los percentiles 95 o 99).
         Conservalor si:
             1.Son datos reales e importantes: Si reflejan un comportamiento legítimo del negocio (ej. conductores que viajan distancias muy largas por trabajo), eliminarlos sesgaría la realidad.
-    
             2.El modelo es robusto: Si vas a usar algoritmos basados en árboles de decisión (como Random Forest o XGBoost), no es necesario quitarlos, ya que estos modelos son inmunes a su impacto.
 
 ### Tarea 3a. Visualizaciones
@@ -107,7 +106,7 @@ Pregunta: ¿Qué tipo de visualización(es) de datos será(n) la(s) más útil(e
     Gráfico de dispersión (Scatter plot)
     Mapa geográfico (A geographic map)
 
-### Sesions
+## Sesions
 
 Gráfico de caja (Boxplot) para analizar la distribución de sesiones mensuales por usuario.
 Configura el lienzo alargado (10x2) con su título, y usa 'fliersize=1' para mantener
@@ -128,7 +127,7 @@ los conteos de apertura de la app entre toda la base de datos de usuarios.
     plt.axvline(median, color='red', linestyle='--')
     plt.text(75,1200, 'median=56.0', color='red')
 
-## Drives**
+## Drives
 
 "Un evento/ocurrencia de conducir al menos 1 km durante el mes"
 
@@ -257,7 +256,7 @@ Esto nos mostrará la frecuencia con la que los usuarios abren la app en un mes.
 
     histogrammer('activity_days')
 
-# Driving_days
+## Driving_days
 
 numero de dias que el usuario condujeron 1km durante el mes
 
@@ -276,7 +275,7 @@ Llama a la función auxiliadora para graficar el histograma de los días de cond
 Esto revelará la frecuencia mensual de uso del automóvil por parte de los usuarios.
 histogrammer('driving_days')
 
-# Device
+## Device
 El tipo de dispositivo con el que un usuario inicia una sesión.
 
 Esta es una variable categórica, por lo que no se representa con un diagrama de caja. Un buen gráfico para una variable categórica binaria es un gráfico circular.
@@ -297,7 +296,7 @@ y se configuran etiquetas dinámicas que muestran el nombre del dispositivo junt
 
 En estos datos, hay casi el doble de usuarios de iPhone que de usuarios de Android.
 
-# label
+## label
 
 Variable binaria («usuario retenido» frente a «usuario dado de baja») para indicar si un usuario se ha dado de baja en algún momento del mes.
 
@@ -318,7 +317,7 @@ Muestra etiquetas dinámicas con el total exacto por grupo (.values) y calcula e
 
 
 
-# Días de conducción vs. Días de actividad
+## Días de conducción vs. Días de actividad
 Dado que tanto los días de conducción como los días de actividad representan el número de días al mes y están estrechamente relacionados, se pueden graficar juntos en un solo histograma. Esto ayudará a comprender mejor su relación sin tener que comparar histogramas en dos lugares diferentes.
 
 Grafica un histograma que, para cada día, tenga una barra que represente el número de días de conducción y días de actividad.
@@ -376,7 +375,7 @@ Pintar la línea de identidad diagonal desde el punto (0,0) hasta el (31,31)
 
 Tenga en cuenta que existe un límite teórico. Si usa la aplicación para conducir, por definición también se contabiliza como un día de uso. En otras palabras, no puede tener más días de conducción que días de actividad. Ninguna de las muestras de estos datos infringe esta regla, lo cual es positivo.
 
-# Retención por dispositivo
+## Retención por dispositivo
 Grafica un histograma que tenga cuatro barras —una para cada combinación de dispositivo y etiqueta (device-label)— para mostrar cuántos usuarios de iPhone fueron retenid
 
 Histograma agrupado (usando histplot) para analizar la retención y el abandono según el dispositivo.
@@ -394,21 +393,21 @@ El parámetro 'shrink=0.9' añade un pequeño espacio entre los bloques de barra
 
 La proporción de usuarios que abandonaron la aplicación frente a los usuarios retenidos es constante entre los diferentes tipos de dispositivos.
 
-#   Retención por kilómetros conducidos por día de conducción
+## Retención por kilómetros conducidos por día de conducción
 En el curso anterior, descubriste que la mediana de la distancia conducida por día de conducción el mes pasado para los usuarios que abandonaron la aplicación (churned) fue de 697.54 km, frente a 289.55 km para las personas que no la abandonaron. Examina esto más a fondo.
 
- 1. Crea una nueva columna en df llamada km_per_driving_day, la cual represente la distancia promedio conducida por día de conducción para cada usuario.
+# 1. Crea una nueva columna en df llamada km_per_driving_day, la cual represente la distancia promedio conducida por día de conducción para cada usuario.
 
- 2. Llama al método describe() en la nueva columna.
-
-1. Crear la nueva columna 'km_per_driving_day'
+Crear la nueva columna 'km_per_driving_day'
 Representa la distancia promedio conducida por cada día de manejo en el mes.
 Se obtiene dividiendo los kilómetros totales ('driven_km_drives') entre los días de conducción
 
     ('driving_days').
     df['km_per_driving_day'] = df['driven_km_drives'] / df['driving_days']
 
-2. Obtener el resumen estadístico descriptivo de la nueva columna
+
+# 2. Llama al método describe() en la nueva columna.
+Obtener el resumen estadístico descriptivo de la nueva columna
 Ejecuta .describe() para analizar métricas clave como la media, la mediana (50%),
 los valores mínimos/máximos y evaluar la dispersión de este nuevo promedio.
 
@@ -418,17 +417,17 @@ los valores mínimos/máximos y evaluar la dispersión de este nuevo promedio.
 
 Esto es el resultado de que existen valores de cero en la columna driving_days. Pandas asigna un valor de infinito en las filas correspondientes de la nueva columna porque la división por cero no está definida.
 
-   1. Convierte estos valores de infinito a cero. Puedes usar np.inf para hacer referencia a un valor de infinito.
+# 1. Convierte estos valores de infinito a cero. Puedes usar np.inf para hacer referencia a un valor de infinito.
 
-   2. Llama a describe() en la columna km_per_driving_day para verificar que funcionó
-
-1. Reemplazar los valores infinitos (provocados por la división por cero) por 0.
+Reemplazar los valores infinitos (provocados por la división por cero) por 0.
 Utiliza df.loc para localizar las filas donde 'km_per_driving_day' sea igual a np.inf
 y asigna el valor de 0 en esa misma columna para limpiar los datos.
 
     df.loc[df['km_per_driving_day'] == np.inf, 'km_per_driving_day'] = 0
 
-2. Confirmar que el reemplazo funcionó correctamente.
+# 2. Llama a describe() en la columna km_per_driving_day para verificar que funcionó
+
+Confirmar que el reemplazo funcionó correctamente.
 Al ejecutar nuevamente .describe(), la media y la desviación estándar ya no serán infinitas o NaN,
 y el valor máximo reflejará la distancia real más alta por día conducido.
 
@@ -543,7 +542,7 @@ Haz un histograma de n_days_after_onboarding solo para las personas que tuvieron
 
 El número de días transcurridos desde la incorporación (onboarding) para los usuarios con el 40% o más de sus sesiones totales ocurridas solo en el último mes presenta una distribución uniforme. Esto es muy extraño. Valdría la pena preguntar a Waze por qué tantos usuarios antiguos de repente usaron tanto la aplicación en el último mes."
 
-# Tarea 3b. Manejo de valores atípicos (outliers)
+### Tarea 3b. Manejo de valores atípicos (outliers)
 Los gráficos de caja (box plots) de la sección anterior indicaron que muchas de estas variables tienen valores atípicos. Estos valores atípicos no parecen ser errores de ingreso de datos; están presentes debido a las distribuciones sesgadas a la derecha.
 
 Dependiendo de lo que vayas a hacer con estos datos, puede ser útil imputar los datos atípicos con valores más razonables. Una forma de realizar esta imputación es establecer un umbral basado en un percentil de la distribución.  
@@ -573,7 +572,7 @@ Para practicar esta técnica, escribe una función que calcule el percentil 95 d
             outlier_imputer(column, 0.95)
 
 
-Conclusión
+### Conclusión
 El análisis reveló que la tasa de abandono (churn rate) general es de aproximadamente el 17%, y que esta tasa es consistente tanto entre usuarios de iPhone como de Android.
 
 Tal vez sientas que cuanto más profundamente exploras los datos, surgen más preguntas. ¡Esto no es inusual! En este caso, valdría la pena preguntar al equipo de datos de Waze por qué tantos usuarios utilizaron tanto la aplicación solo en el último mes.
