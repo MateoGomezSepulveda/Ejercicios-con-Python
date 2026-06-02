@@ -1,4 +1,4 @@
-### Proyecto Waze Curso 2 - Ve más allá de los números: Traduce datos en información valiosa (Insights) ###
+# Proyecto Waze Curso 2 - Ve más allá de los números: Traduce datos en información valiosa (Insights) ###
 
 Tu equipo aún se encuentra en las primeras etapas del proyecto sobre la pérdida de usuarios (user churn). Hasta ahora, has completado una propuesta de proyecto y has utilizado Python para inspeccionar y organizar los datos de los usuarios de Waze.
 
@@ -27,37 +27,37 @@ Sigue las instrucciones y responde a la pregunta de abajo para completar la acti
 
 Asegúrate de completar esta actividad antes de continuar. El próximo elemento del curso te proporcionará un modelo/ejemplar completado para que lo compares con tu propio trabajo.
 
-### Tarea 1. Importaciones y carga de datos Para el análisis exploratorio de datos (EDA), importa los datos y los paquetes que serán de mayor utilidad, tales como pandas, numpy y matplotlib.###
+# Tarea 1. Importaciones y carga de datos Para el análisis exploratorio de datos (EDA), importa los datos y los paquetes que serán de mayor utilidad, tales como pandas, numpy y matplotlib.###
 
     import numpy as ap
     import pandas as pd
     import matplotlib.pyplot as plt
     import seaborn as sns
 
-## PACE: Analizar Considera las preguntas de tu Documento de Estrategia PACE y las que se presentan a continuación, según corresponda, para completar tu código:**
+### PACE: Analizar Considera las preguntas de tu Documento de Estrategia PACE y las que se presentan a continuación, según corresponda, para completar tu código:**
 
-# ¿Es necesario reestructurar los datos o convertirlos a formatos utilizables?
+## ¿Es necesario reestructurar los datos o convertirlos a formatos utilizables?
 
 Respuesta: No es necesario hacer una reestructuracion completa como derretir datos o tablas pero si es recomendable realizar pequeñas conversiones logicas si se va a trabajar con variables categoricas complejas como label o device
 
-# ¿Existe alguna variable que tenga datos faltantes?
+### ¿Existe alguna variable que tenga datos faltantes?
 
 Respuesta:Si al revisar el dataset de waze podremos notar datos faltantes en algunas varibles que nos indicara si algun usuario de waze abandono la aplicaicon o tiene valores nulos.
 
-### Tarea 2. Exploración y limpieza de datos
+# Tarea 2. Exploración y limpieza de datos
 
 ## Considera las siguientes preguntas:
 
-# Dado el escenario, ¿cuáles columnas de datos son las más aplicables?
+### Dado el escenario, ¿cuáles columnas de datos son las más aplicables?
 Respuesta: Las columnas más aplicables son aquellas que describen el comportamiento, laactividad y el perfil del usuario en relación con el abandono de la aplicación. Esto incluye lavariable objetivo label (que indica si el usuario se quedó o se fue), y variables predictorasclave como sessions (sesiones), drives (viajes realizados), total_sessions, driven_km_drives(kilómetros conducidos), duration_minutes_drives (minutos conducidos) y device (tipo dedispositivo).
 
-# ¿Cuáles columnas de datos puedes eliminar, sabiendo que no resolverán el escenario de tu problema?
+### ¿Cuáles columnas de datos puedes eliminar, sabiendo que no resolverán el escenario de tu problema?
 Respuesta: La columna ID se puede eliminar (o no tomar en cuenta en los modelos) debido a que es un identificador único numérico para cada fila que no aporta ningún patrón de comportamiento ni valor estadístico para predecir la pérdida de usuarios.
 
-# ¿Cómo verificarías si hay datos faltantes? Y ¿cómo manejarías los datos faltantes (si los hay)?
+### ¿Cómo verificarías si hay datos faltantes? Y ¿cómo manejarías los datos faltantes (si los hay)?
 Respuesta: Para verificar datos faltantes en Python se utiliza el comando df.isna().sum() o dfisnull().sum(). Para manejarlos, dado que los datos faltantes se encuentran específicamente enla columna categórica label, se puede optar por excluir temporalmente esas filas en losanálisis estadísticos directos o visualizaciones de la tasa de abandono para no sesgar losporcentajes reales, o evaluar si el volumen de nulos es lo suficientemente bajo como paraeliminarlos sin perder representatividad.
 
-# ¿Cómo verificarías si hay valores atípicos (outliers)? Y ¿cómo manejarías los valores atípicos (si los hay)?
+### ¿Cómo verificarías si hay valores atípicos (outliers)? Y ¿cómo manejarías los valores atípicos (si los hay)?
 Respuesta: Para verificar valores atípicos se utiliza el método numérico df.describe()(observando diferencias drásticas entre el percentil 75 y el valor máximo) y herramientasvisuales como diagramas de caja (boxplot) o histogramas. Para manejarlos, dependiendo delimpacto, se pueden aplicar técnicas como el aislamiento (recortar/reemplazar los valoresextremos fijándolos en un percentil alto como el 95 o 99 mediante imputación por límites) osimplemente conservarlos si representan comportamientos reales de usuarios extremadamenteactivos de la aplicación.
 
 ![df.head()](image.png)
@@ -68,10 +68,10 @@ Respuesta: Para verificar valores atípicos se utiliza el método numérico df.d
 
 ![df.describe()](image-3.png)
 
-### PACE: Construir
+# PACE: Construir
 ## Considera las siguientes preguntas mientras te preparas para lidiar con los valores atípicos (outliers):
 
-# ¿Cuáles son algunas formas de identificar los valores atípicos?
+### ¿Cuáles son algunas formas de identificar los valores atípicos?
 Respuesta:
 1. Método del Rango Intercuartílico (IQR): Es uno de los más utilizados en análisis exploratorio. Se calcula la diferencia entre el tercer cuartil (Q3) y el primer cuartil (Q1) para obtener el IQR. Cualquier dato que se encuentre por debajo de $Q1 - 1.5 \times IQR$ o por encima de $Q3 + 1.5 \times IQR$ se considera un valor atípico.
 
@@ -81,7 +81,7 @@ Respuesta:
 
 4.Visualizaciones Gráficas: * Diagramas de caja (Boxplots): Reflejan directamente el método IQR mostrando los valores extremos como puntos aislados fuera de los "bigotes".
 
-# ¿Cómo tomas la decisión de conservar o excluir los valores atípicos de cualquier modelo futuro?
+### ¿Cómo tomas la decisión de conservar o excluir los valores atípicos de cualquier modelo futuro?
 Respuesta: La decisión no depende de una regla matemática fija, sino de la naturaleza de los datos y del objetivo del negocio. Se deben considerar los siguientes escenarios:
 
 Excluir o modificarlos si:
@@ -91,7 +91,7 @@ Excluir o modificarlos si:
             1.Son datos reales e importantes: Si reflejan un comportamiento legítimo del negocio (ej. conductores que viajan distancias muy largas por trabajo), eliminarlos sesgaría la realidad.
             2.El modelo es robusto: Si vas a usar algoritmos basados en árboles de decisión (como Random Forest o XGBoost), no es necesario quitarlos, ya que estos modelos son inmunes a su impacto.
 
-### Tarea 3a. Visualizaciones
+# Tarea 3a. Visualizaciones
 Selecciona los tipos de visualización de datos que te ayudarán a comprender y explicar los datos.
 
 Ahora que ya sabes qué columnas de datos vas a utilizar, es momento de decidir qué visualización de datos tiene más sentido para el EDA (Análisis Exploratorio de Datos) del conjunto de datos de Waze.
@@ -396,7 +396,7 @@ La proporción de usuarios que abandonaron la aplicación frente a los usuarios 
 ## Retención por kilómetros conducidos por día de conducción
 En el curso anterior, descubriste que la mediana de la distancia conducida por día de conducción el mes pasado para los usuarios que abandonaron la aplicación (churned) fue de 697.54 km, frente a 289.55 km para las personas que no la abandonaron. Examina esto más a fondo.
 
-# 1. Crea una nueva columna en df llamada km_per_driving_day, la cual represente la distancia promedio conducida por día de conducción para cada usuario.
+### 1. Crea una nueva columna en df llamada km_per_driving_day, la cual represente la distancia promedio conducida por día de conducción para cada usuario.
 
 Crear la nueva columna 'km_per_driving_day'
 Representa la distancia promedio conducida por cada día de manejo en el mes.
@@ -406,7 +406,7 @@ Se obtiene dividiendo los kilómetros totales ('driven_km_drives') entre los dí
     df['km_per_driving_day'] = df['driven_km_drives'] / df['driving_days']
 
 
-# 2. Llama al método describe() en la nueva columna.
+### 2. Llama al método describe() en la nueva columna.
 Obtener el resumen estadístico descriptivo de la nueva columna
 Ejecuta .describe() para analizar métricas clave como la media, la mediana (50%),
 los valores mínimos/máximos y evaluar la dispersión de este nuevo promedio.
@@ -417,7 +417,7 @@ los valores mínimos/máximos y evaluar la dispersión de este nuevo promedio.
 
 Esto es el resultado de que existen valores de cero en la columna driving_days. Pandas asigna un valor de infinito en las filas correspondientes de la nueva columna porque la división por cero no está definida.
 
-# 1. Convierte estos valores de infinito a cero. Puedes usar np.inf para hacer referencia a un valor de infinito.
+### 1. Convierte estos valores de infinito a cero. Puedes usar np.inf para hacer referencia a un valor de infinito.
 
 Reemplazar los valores infinitos (provocados por la división por cero) por 0.
 Utiliza df.loc para localizar las filas donde 'km_per_driving_day' sea igual a np.inf
@@ -425,7 +425,7 @@ y asigna el valor de 0 en esa misma columna para limpiar los datos.
 
     df.loc[df['km_per_driving_day'] == np.inf, 'km_per_driving_day'] = 0
 
-# 2. Llama a describe() en la columna km_per_driving_day para verificar que funcionó
+### 2. Llama a describe() en la columna km_per_driving_day para verificar que funcionó
 
 Confirmar que el reemplazo funcionó correctamente.
 Al ejecutar nuevamente .describe(), la media y la desviación estándar ya no serán infinitas o NaN,
@@ -459,7 +459,7 @@ Asignar el título descriptivo al gráfico
 
 La tasa de abandono (churn rate) tiende a aumentar a medida que incrementa la distancia promedio diaria conducida, lo que confirma lo descubierto en el curso anterior. Valdría la pena investigar más a fondo las razones por las cuales los usuarios de largas distancias dejan de utilizar la aplicación.
 
-# Tasa de abandono por número de días conducidos
+### Tasa de abandono por número de días conducidos
 Crea otro histograma exactamente igual al anterior, solo que esta vez debe representar la tasa de abandono (churn rate) para cada número de días conducidos
 
 Configurar el tamaño del lienzo (12x5) para observar con claridad la tendencia mensual
@@ -487,7 +487,7 @@ La tasa de abandono (churn rate) es más alta entre las personas que no usaron m
 
 Esto no es sorprendente. Si las personas que usan mucho la aplicación la abandonaran, probablemente indicaría insatisfacción. Cuando las personas que no usan la aplicación se van, podría ser el resultado de una insatisfacción en el pasado, o podría indicar una menor necesidad de una aplicación de navegación. Tal vez se mudaron a una ciudad con buen transporte público y ya no necesitan conducir
 
-# Proporción de sesiones que ocurrieron en el último mes
+### Proporción de sesiones que ocurrieron en el último mes
 Crea una nueva columna llamada percent_sessions_in_last_month que represente el porcentaje del total de sesiones de cada usuario que fueron registradas en su último mes de uso.
 
 Crear la nueva columna 'percent_sessions_in_last_month'
@@ -542,7 +542,7 @@ Haz un histograma de n_days_after_onboarding solo para las personas que tuvieron
 
 El número de días transcurridos desde la incorporación (onboarding) para los usuarios con el 40% o más de sus sesiones totales ocurridas solo en el último mes presenta una distribución uniforme. Esto es muy extraño. Valdría la pena preguntar a Waze por qué tantos usuarios antiguos de repente usaron tanto la aplicación en el último mes."
 
-### Tarea 3b. Manejo de valores atípicos (outliers)
+# Tarea 3b. Manejo de valores atípicos (outliers)
 Los gráficos de caja (box plots) de la sección anterior indicaron que muchas de estas variables tienen valores atípicos. Estos valores atípicos no parecen ser errores de ingreso de datos; están presentes debido a las distribuciones sesgadas a la derecha.
 
 Dependiendo de lo que vayas a hacer con estos datos, puede ser útil imputar los datos atípicos con valores más razonables. Una forma de realizar esta imputación es establecer un umbral basado en un percentil de la distribución.  
@@ -572,7 +572,7 @@ Para practicar esta técnica, escribe una función que calcule el percentil 95 d
             outlier_imputer(column, 0.95)
 
 
-### Conclusión
+# Conclusión
 El análisis reveló que la tasa de abandono (churn rate) general es de aproximadamente el 17%, y que esta tasa es consistente tanto entre usuarios de iPhone como de Android.
 
 Tal vez sientas que cuanto más profundamente exploras los datos, surgen más preguntas. ¡Esto no es inusual! En este caso, valdría la pena preguntar al equipo de datos de Waze por qué tantos usuarios utilizaron tanto la aplicación solo en el último mes.
