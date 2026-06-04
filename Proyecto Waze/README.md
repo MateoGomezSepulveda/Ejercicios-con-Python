@@ -1,4 +1,4 @@
-# Proyecto Waze Curso 2 - Ve más allá de los números: Traduce datos en información valiosa (Insights) ###
+# Proyecto Waze Curso 2 - Ve más allá de los números: Traduce datos en información valiosa (Insights)
 
 Tu equipo aún se encuentra en las primeras etapas del proyecto sobre la pérdida de usuarios (user churn). Hasta ahora, has completado una propuesta de proyecto y has utilizado Python para inspeccionar y organizar los datos de los usuarios de Waze.
 
@@ -27,16 +27,17 @@ Sigue las instrucciones y responde a la pregunta de abajo para completar la acti
 
 Asegúrate de completar esta actividad antes de continuar. El próximo elemento del curso te proporcionará un modelo/ejemplar completado para que lo compares con tu propio trabajo.
 
-# Tarea 1. Importaciones y carga de datos Para el análisis exploratorio de datos (EDA), importa los datos y los paquetes que serán de mayor utilidad, tales como pandas, numpy y matplotlib.###
+## Tarea 1.
+### Importaciones y carga de datos Para el análisis exploratorio de datos (EDA), importa los datos y los paquetes que serán de mayor utilidad, tales como pandas, numpy y matplotlib.###
 
     import numpy as ap
     import pandas as pd
     import matplotlib.pyplot as plt
     import seaborn as sns
 
-### PACE: Analizar Considera las preguntas de tu Documento de Estrategia PACE y las que se presentan a continuación, según corresponda, para completar tu código:**
+### Analizar Considera las preguntas de tu Documento de Estrategia PACE y las que se presentan a continuación, según corresponda, para completar tu código:
 
-## ¿Es necesario reestructurar los datos o convertirlos a formatos utilizables?
+### ¿Es necesario reestructurar los datos o convertirlos a formatos utilizables?
 
 Respuesta: No es necesario hacer una reestructuracion completa como derretir datos o tablas pero si es recomendable realizar pequeñas conversiones logicas si se va a trabajar con variables categoricas complejas como label o device
 
